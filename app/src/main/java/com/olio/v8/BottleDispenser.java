@@ -32,8 +32,8 @@ public class BottleDispenser {
         }
         return bd_instance;
     }
-    public double addMoney() {
-        this.money += 1.00;
+    public double addMoney(double deposit) {
+        this.money += deposit;
         return this.money;
     }
     //Ostaa pullon ja poistaa sen listasta, jos rahat ja pullot riittävät
