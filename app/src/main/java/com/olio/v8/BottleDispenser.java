@@ -11,14 +11,13 @@ public class BottleDispenser {
     private double money;
     ArrayList<Bottle> BottleList = new ArrayList<Bottle>();
     private BottleDispenser() {
-        bottles = 5;
         this.money = 0;
-        //Lisätään pullot ArrayListiin
-        Bottle bottle1 = new Bottle("Pepsi Max", "Pepsi", 0.3, 1.80, 0.5);
-        Bottle bottle2 = new Bottle("Pepsi Max", "Pepsi", 0.3, 2.20, 1.5);
-        Bottle bottle3 = new Bottle("Coca-Cola Zero", "Coca-Cola", 0.3, 2.0, 0.5);
-        Bottle bottle4 = new Bottle("Coca-Cola Zero", "Coca-Cola", 0.3, 2.5, 1.5);
-        Bottle bottle5 = new Bottle("Fanta Zero", "Coca-Cola", 0.3, 1.95, 0.5);
+        //Add bottles ArrayListiin
+        Bottle bottle1 = new Bottle("Pepsi Max", 1.80, 0.5);
+        Bottle bottle2 = new Bottle("Pepsi Max", 2.20, 1.5);
+        Bottle bottle3 = new Bottle("Coca-Cola Zero", 2.0, 0.5);
+        Bottle bottle4 = new Bottle("Coca-Cola Zero", 2.5, 1.5);
+        Bottle bottle5 = new Bottle("Fanta Zero", 1.95, 0.5);
         BottleList.add(bottle1);
         BottleList.add(bottle2);
         BottleList.add(bottle3);
@@ -26,6 +25,7 @@ public class BottleDispenser {
         BottleList.add(bottle5);
 
     }
+    //Singleton pattern for BottleDispenser
     public static BottleDispenser getInstance(){
         if (bd_instance == null){
             bd_instance = new BottleDispenser();
@@ -36,36 +36,18 @@ public class BottleDispenser {
         this.money += deposit;
         return this.money;
     }
-    //Ostaa pullon ja poistaa sen listasta, jos rahat ja pullot riittävät
-    public void buyBottle(int index) {
-        if(money >= BottleList.get(index-1).getPrice()) {
-            if (bottles > 0) {
-                bottles -= 1;
-                money -= BottleList.get(index-1).getPrice();
-                System.out.println("KACHUNK! " + BottleList.get(index-1).getName() + " came out of the dispenser!");
-                removeBottle(index-1);
-            } else {
-                System.out.println("There are no more bottles left.");
-                returnMoney();
-            }
-        } else{
-            System.out.println("Add money first!");
-        }
+
+    public double removeMoney(double amount){
+        this.money -= amount;
+        return this.money;
     }
-    //Listaa koneessa olevat pullot
-    public void listBottles(){
-        for (int j = 0;  j < BottleList.size(); j++){
-            System.out.println(j + 1 + ". Name: "  + BottleList.get(j).getName());
-            System.out.println("\tSize: " + BottleList.get(j).getSize() + "\tPrice: " + BottleList.get(j).getPrice());
-        }
+
+    public double getBalance(){
+        return this.money;
     }
-    //Poistaa koneesta ostetun pullon
-    public void removeBottle(int index){
-        BottleList.remove(index);
-    }
-    //Palauttaa rahat ja ilmoittaa palautetun rahan määrän
+
+    //Returns money from the dispenser
     public void returnMoney() {
-        System.out.printf("Klink klink. Money came out! You got %.2f€ back%n", money);
         money = 0;
     }
 }

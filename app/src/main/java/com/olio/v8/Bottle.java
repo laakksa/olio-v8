@@ -5,16 +5,12 @@ package com.olio.v8;
 
 public class Bottle {
     private String name;
-    private String manufacturer;
-    private double total_energy;
     private double price;
     private double size;
-    public Bottle(String name1, String manuf, double totE, double pri, double siz){
-        name = name1;
-        manufacturer = manuf;
-        total_energy = totE;
-        price = pri;
-        size = siz;
+    public Bottle(String name, double price, double size){
+        this.name = name;
+        this.price = price;
+        this.size = size;
     }
     public String getName(){
         return name;
